@@ -1,0 +1,29 @@
+.choose-name {
+    width: 27.5%;
+    min-width: 300px;
+    .choose-name-form {
+        .name-input {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #cecece;
+            margin-bottom: 15px;
+            font-size: rem(15px);
+        }
+
+        .choose-name-btn {
+            align-self: center;
+            padding: 10px 25px;
+            border-radius: 5px;
+            background-color: $clr5;
+            border: none;
+            font-size: rem(16px);
+            color: $clr6;
+            font-family: livvicBold;
+            transition: .3s;
+
+            &:hover {
+                background-color: darken($clr5, 7);
+            }
+        }
+    }
+}

@@ -1,0 +1,72 @@
+.main-container {
+    background: url("./assets/game-bg.jpg");
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+
+    .main-table {
+        width: 65%;
+        height: 80%;
+        border-collapse: collapse;
+        margin-top: 50px;
+
+        // tr {
+        //     background: linear-gradient(to right, #ffffff 0%, #2215b3 10%, #160202 50%, #272da8 90%, #fcfcfc 100%),
+        //         white;
+        //     background-size: 100% 1px, 100% 100%;
+        //     background-position: left bottom, left top;
+        //     background-repeat: no-repeat;
+        // }
+
+        .cell {
+            text-align: center;
+            font-size: rem(48px);
+            cursor: pointer;
+            width: 33.333%;
+            height: 33.333%;
+            min-width: 33.333%;
+            min-height: 33.333%;
+
+            &-0-0,
+            &-0-1,
+            &-0-2,
+            &-1-0,
+            &-1-1,
+            &-1-2 {
+                border-bottom: 7px solid lighten($color: $clr5, $amount: 30);
+            }
+
+            &-0-0,
+            &-0-1,
+            &-1-0,
+            &-1-1,
+            &-2-0,
+            &-2-1 {
+                border-right: 7px solid lighten($color: $clr5, $amount: 30);
+            }
+
+            .symbol {
+                max-width: 80%;
+                animation: scale-up-center 0.4s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+            }
+        }
+    }
+}
+
+@keyframes scale-up-center {
+    0% {
+        transform: scale(0.5);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@media (max-width: 600px) {
+    .main-container {
+        .main-table {
+            width: 90%;
+            height: 70%;
+        }
+    }
+}

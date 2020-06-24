@@ -1,0 +1,54 @@
+.hero-container {
+    background: url("./assets/home-bg.jpg");
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+    background-position: 100% 100%;
+    padding-bottom: 80px;
+
+    .play-form {
+        .play-btn {
+            background-color: $clr6;
+            padding: 15px 90px;
+            border-radius: 5px;
+            color: $clr1;
+            font-family: livvicBold;
+            font-size: rem(18px);
+            box-shadow: 0 0 5px 0 #044a08;
+            border: none;
+            transition: 0.3s;
+
+            &:hover {
+                background-color: #e4e4e4;
+            }
+
+            &:active {
+                background-color: #f1f1f1;
+            }
+        }
+
+        .play-input {
+            padding: 15px;
+            border: none;
+            font-size: rem(16px);
+            border-radius: 5px;
+            transition: 0.3s;
+            margin-bottom: 15px;
+            text-align: center;
+            background-color: $clr6;
+
+            &:focus {
+                box-shadow: 0 0 5px 0 #044a08;
+                background-color: #f1f1f1;
+            }
+        }
+    }
+}
+
+@media (max-width: 900px) {
+    .hero-container {
+        background-size: cover;
+        background-position: 50%;
+        padding-bottom: 80px;
+    }
+}

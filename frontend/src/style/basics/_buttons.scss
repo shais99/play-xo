@@ -1,0 +1,28 @@
+.btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 3px;
+    background-color: #eeeeee;
+    font-family: livvicSemiBold;
+
+    &.primary {
+        background-color: $clr2;
+        color: $clr6;
+        transition: 0.3s;
+
+        &:hover {
+            background-color: darken($clr2, 7);
+        }
+    }
+
+    &.danger {
+        background-color: rgb(214, 0, 0);
+        color: $clr6;
+        transition: 0.3s;
+        cursor: pointer;
+
+        &:hover {
+            background-color: rgb(185, 1, 1);
+        }
+    }
+}

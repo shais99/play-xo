@@ -1,0 +1,20 @@
+// Setup
+@import "setup/variables.scss";
+@import "setup/functions.scss";
+@import "setup/typography.scss";
+
+// Basics
+@import "basics/helpers.scss";
+@import "basics/layout.scss";
+@import "basics/base.scss";
+@import "basics/links.scss";
+@import "basics/buttons.scss";
+
+// Components
+@import "cmps/HomePage.scss";
+@import "cmps/PlayGame.scss";
+@import "cmps/GameOver.scss";
+@import "cmps/ChooseName.scss";
+@import "cmps/Waiting.scss";
+@import "cmps/UserMsg.scss";
+@import "cmps/GameDetails.scss";

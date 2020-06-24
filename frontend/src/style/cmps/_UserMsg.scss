@@ -1,0 +1,22 @@
+.user-msg-container {
+    background: -webkit-linear-gradient(bottom, #e4e4e4 0%, #ffffff 100%);
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    border-radius: 5px;
+    padding: 15px 20px;
+    color: $clr3;
+    box-shadow: 0 0 5px 0 #0000008f;
+    font-family: livvicBold;
+    animation: slide-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    z-index: 999;
+}
+
+@keyframes slide-top {
+    0% {
+        transform: translateY(100px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}

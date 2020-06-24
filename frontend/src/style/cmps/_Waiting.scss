@@ -1,0 +1,13 @@
+.waiting-container {
+    padding: 20px 0 0;
+    width: 27.5%;
+    min-width: 300px;
+
+    .waiting-title {
+        margin-bottom: 15px;
+    }
+    
+    .loader {
+        width: 220px;
+    }
+}

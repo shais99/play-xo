@@ -1,0 +1,21 @@
+.game-details-container {
+    background-color: rgba($clr6, 0.9);
+    width: 100%;
+    padding: 10px;
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-items: center;
+    box-shadow: 0 0 5px 0 #0000008f;
+    font-size: rem(11px);
+
+    .curr-turn {
+        color: $clr1;
+    }
+}
+
+@media (max-width: 470px) {
+    .game-details-container {
+        font-size: rem(8px);
+    }
+}
