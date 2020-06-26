@@ -48,9 +48,11 @@ export default {
             socketService.emit('updateGame', savedGame);
             return savedGame
         },
-        async addGame({ commit }, { game }) {
+        async addGame({ commit, getters }, { game }) {
             const savedGame = await xoService.save(game)
             commit({ type: 'saveGame', game: savedGame })
+            socketService.emit('updateGames', getters.games);
+
             return savedGame
         },
         async getGameById({ commit }, { id }) {

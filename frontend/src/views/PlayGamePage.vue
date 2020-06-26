@@ -1,6 +1,11 @@
 <template>
   <main class="main-container flex column align-center" v-if="game">
-    <game-over v-if="game.winner" :winner="game.winner" />
+    <game-over
+      v-if="game.winner || game.isDraw"
+      :winner="game.winner"
+      :isTimesUp="game.isTimesUp"
+      :isDraw="game.isDraw"
+    />
     <choose-name
       v-if="!isLoggedInUser && game.players.length < 2"
       @toggleLoggedInUser="toggleLoggedInUser"
@@ -45,7 +50,6 @@ import socketService from "../services/socketService";
 import { makeId } from "../services/utilService";
 
 export default {
-  // @ TODO: SHOW SOMETHING IF ITS A TIE!
   name: "play-game",
   data() {
     return {
@@ -53,8 +57,7 @@ export default {
       msg: "",
       msgTimeout: 0,
       turnTimer: 3,
-      timerInterval: 0,
-      isTie: false
+      timerInterval: 0
     };
   },
   async created() {
@@ -91,7 +94,6 @@ export default {
   },
   destroyed() {
     socketService.off("loadGame", this.setGame);
-    socketService.terminate();
     clearTimeout(this.msgTimeout);
     clearInterval(this.timerInterval);
   },
@@ -113,6 +115,7 @@ export default {
           );
           const winnerIdx = currTurnIdx === 1 ? 0 : 1;
           this.game.winner = this.game.players[winnerIdx];
+          this.game.isTimesUp = true;
           return this.$store.dispatch({ type: "saveGame", game: this.game });
         }
         if (!this.game.winner) this.turnTimer -= 1;
@@ -178,7 +181,11 @@ export default {
         return (game.winner = game.currTurn);
       }
 
-      if (this.checkIsTie()) this.isTie = true;
+      if (this.checkIsDraw()) {
+        clearInterval(this.timerInterval);
+        this.$store.dispatch({ type: "saveGame", game });
+        return (game.isDraw = true);
+      }
 
       // Change the current turn to the other player
       const currTurnIdx = game.players.findIndex(
@@ -270,7 +277,7 @@ export default {
         if (colIdx === 2) {
           if (
             mat[colIdx - 1][cellIdx - 1] === symbol &&
-            mat[colIdx - 2][cellIdx - 2]
+            mat[colIdx - 2][cellIdx - 2] === symbol
           )
             return (isDiagonal = true);
         }
@@ -286,16 +293,16 @@ export default {
       }
       return isDiagonal;
     },
-    checkIsTie() {
+    checkIsDraw() {
       const { mat } = this.game;
-      let isTie = false;
-      mat.forEach(col =>
-        col.forEach(cell => {
-          if (cell) return (isTie = true);
-          return (isTie = false);
+      let isDraw = true;
+      mat.forEach((col, colIdx) =>
+        col.forEach((cell, cellIdx) => {
+          if (!mat[colIdx][cellIdx]) isDraw = false;
         })
       );
-      return isTie;
+
+      return isDraw;
     }
   },
   components: { GameOver, ChooseName, Waiting, UserMsg, GameDetails }

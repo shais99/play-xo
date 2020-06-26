@@ -5,6 +5,21 @@
     background-size: cover;
     background-position: 100% 100%;
     padding-bottom: 80px;
+    padding-top: 30px;
+
+    .show-games-btn-container {
+        flex: 1;
+
+        .show-games-btn {
+            font-size: rem(16px);
+            transition: 0.3s;
+
+            &:hover {
+                background-color: $clr6;
+                color: darken($clr5, 7);
+            }
+        }
+    }
 
     .play-form {
         .play-btn {
