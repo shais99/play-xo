@@ -134,7 +134,12 @@ export default {
         if (this.turnTimer <= 6) {
           this.timerClass = "red";
         }
-        if (!this.game.winner) this.turnTimer -= 1;
+        if (!this.game.winner) {
+          if (this.turnTimer > 6) {
+            this.timerClass = "";
+          }
+          this.turnTimer -= 1;
+        }
       }, 1000);
     },
     getCellSymbol(symbol) {
