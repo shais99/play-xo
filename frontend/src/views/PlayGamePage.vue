@@ -56,7 +56,7 @@ export default {
       isLoggedInUser: false,
       msg: "",
       msgTimeout: 0,
-      turnTimer: 3,
+      turnTimer: 15,
       timerInterval: 0
     };
   },
@@ -75,7 +75,8 @@ export default {
         const player = {
           id: makeId(),
           name: user,
-          symbol: "O"
+          symbol: "O",
+          isActive: true
         };
         game.players.push(player);
         this.$store.dispatch({ type: "saveGame", game });
@@ -87,15 +88,11 @@ export default {
     socketService.on("loadGame", this.setGame);
     if (!game) return this.$router.push("/");
   },
-  watch: {
-    game(curr, prev) {
-      this.turnTimer = 15;
-    }
-  },
   destroyed() {
-    socketService.off("loadGame", this.setGame);
-    clearTimeout(this.msgTimeout);
     clearInterval(this.timerInterval);
+    clearTimeout(this.msgTimeout);
+    this.changePlayerActive();
+    socketService.off("loadGame", this.setGame);
   },
   computed: {
     game() {
@@ -106,7 +103,20 @@ export default {
     }
   },
   methods: {
+    changePlayerActive() {
+      const { user } = this;
+      if (this.game.players.length > 1) return;
+
+      const playerIndex = this.game.players.findIndex(p => p.name === user);
+      this.game.players[playerIndex].isActive = false;
+
+      const isActivePlayer = this.game.players.some(p => p.isActive);
+      if (!isActivePlayer) {
+        this.$store.dispatch({ type: "removeGame", id: this.game._id });
+      }
+    },
     setTimerInterval() {
+      if (this.timerInterval) return;
       this.timerInterval = setInterval(() => {
         if (this.turnTimer <= 0) {
           clearInterval(this.timerInterval);
@@ -137,6 +147,7 @@ export default {
       this.isLoggedInUser = !this.isLoggedInUser;
     },
     setGame(game) {
+      this.turnTimer = 15;
       this.$store.dispatch({ type: "setGame", game });
     },
     async loadGame() {
@@ -193,6 +204,8 @@ export default {
       );
       const nextTurnIdx = currTurnIdx === 1 ? 0 : 1;
       game.currTurn = game.players[nextTurnIdx];
+
+      this.turnTimer = 15;
 
       this.$store.dispatch({ type: "saveGame", game });
     },

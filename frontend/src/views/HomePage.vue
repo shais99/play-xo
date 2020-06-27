@@ -63,7 +63,7 @@ export default {
       this.userMsg = "Someone looking for a partner... Let's Play!";
       this.userMsgTimeout = setTimeout(() => {
         this.userMsg = "";
-      }, 2000);
+      }, 3000);
     },
     setGames() {
       this.$store.dispatch({ type: "loadGames" });
@@ -80,7 +80,8 @@ export default {
           {
             id: makeId(),
             name: this.name,
-            symbol: "X"
+            symbol: "X",
+            isActive: true
           }
         ],
         winner: null,

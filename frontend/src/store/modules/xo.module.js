@@ -18,10 +18,10 @@ export default {
         setGames(state, { games }) {
             state.games = games
         },
-        removeBook(state, { id }) {
-            const idx = state.books.findIndex(book => book._id === id);
-            if (idx === -1) throw new Error('Somthing went wrong while deleting book');
-            state.books.splice(idx, 1);
+        removeGame(state, { id }) {
+            const idx = state.games.findIndex(game => game._id === id);
+            if (idx === -1) throw new Error('Somthing went wrong while deleting game');
+            state.games.splice(idx, 1);
         },
         saveGame(state, { game }) {
             const idx = state.games.findIndex(currGame => game._id === currGame._id)
@@ -38,9 +38,9 @@ export default {
             commit({ type: 'setGames', games })
             return games
         },
-        async removeBook({ commit }, { id }) {
-            await bookService.remove(id)
-            commit({ type: 'removeBook', id })
+        async removeGame({ commit }, { id }) {
+            await xoService.remove(id)
+            commit({ type: 'removeGame', id })
         },
         async saveGame({ commit }, { game }) {
             const savedGame = await xoService.save(game)
