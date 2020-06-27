@@ -7,7 +7,7 @@
       >{{isGamesContainerOpen ? 'Hide Games' : 'Show Games'}}</button>
     </div>
     <games-container :games="games" v-if="isGamesContainerOpen" />
-    <user-msg v-if="userMsg" :msg="userMsg" />
+    <user-msg v-if="userMsg" :msg="userMsg" color="green" />
     <form class="play-form flex column" v-on:submit.prevent="onPlayGame">
       <input
         type="text"
@@ -60,10 +60,10 @@ export default {
   },
   methods: {
     setUserMsg(msg) {
-      this.userMsg = "Someone looking for a partner... Let's Play!";
+      this.userMsg = msg;
       this.userMsgTimeout = setTimeout(() => {
         this.userMsg = "";
-      }, 3000);
+      }, 5000);
     },
     setGames() {
       this.$store.dispatch({ type: "loadGames" });
@@ -92,7 +92,7 @@ export default {
       game.currTurn = game.players[0];
       this.$store.dispatch({ type: "setUser", user: this.name });
       const newGame = await this.$store.dispatch({ type: "addGame", game });
-      this.userMsg = "Someone looking for a partner... Let's Play!";
+      this.userMsg = "Someone is looking for a partner... Let's Play!";
       socketService.emit("gameAdded", this.userMsg);
 
       this.$router.push(`/play/${newGame._id}`);

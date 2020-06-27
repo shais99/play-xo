@@ -17,6 +17,7 @@
       :players="game.players"
       :timer="turnTimer"
       :setTimerInterval="setTimerInterval"
+      :timerClass="timerClass"
       v-if="game.players.length === 2"
     />
     <table class="main-table">
@@ -57,7 +58,8 @@ export default {
       msg: "",
       msgTimeout: 0,
       turnTimer: 15,
-      timerInterval: 0
+      timerInterval: 0,
+      timerClass: ""
     };
   },
   async created() {
@@ -126,7 +128,11 @@ export default {
           const winnerIdx = currTurnIdx === 1 ? 0 : 1;
           this.game.winner = this.game.players[winnerIdx];
           this.game.isTimesUp = true;
+          this.timerClass = "";
           return this.$store.dispatch({ type: "saveGame", game: this.game });
+        }
+        if (this.turnTimer <= 6) {
+          this.timerClass = "red";
         }
         if (!this.game.winner) this.turnTimer -= 1;
       }, 1000);
