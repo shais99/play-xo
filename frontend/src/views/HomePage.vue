@@ -7,7 +7,9 @@
       >{{isGamesContainerOpen ? 'Hide Games' : 'Show Games'}}</button>
     </div>
     <games-container :games="games" v-if="isGamesContainerOpen" />
-    <user-msg v-if="userMsg" :msg="userMsg" color="green" />
+    <span @click="onMsgClick" class="user-msg-click">
+      <user-msg v-if="userMsg" :msg="userMsg" color="green" />
+    </span>
     <form class="play-form flex column" v-on:submit.prevent="onPlayGame">
       <input
         type="text"
@@ -59,6 +61,9 @@ export default {
     }
   },
   methods: {
+    onMsgClick() {
+      this.$router.push(`/play/${this.games[this.games.length - 1]._id}`);
+    },
     setUserMsg(msg) {
       this.userMsg = msg;
       this.userMsgTimeout = setTimeout(() => {

@@ -8,7 +8,7 @@
     color: $clr3;
     box-shadow: 0 0 5px 0 #0000008f;
     font-family: livvicBold;
-    animation: slide-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    animation: slide-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
     z-index: 999;
 }
 
@@ -18,5 +18,16 @@
     }
     100% {
         transform: translateY(0);
+    }
+}
+
+@media (max-width: 440px) {
+    .user-msg-container {
+        right: unset;
+        margin: 0 auto;
+        width: 95%;
+        font-size: rem(13px);
+        text-align: center;
+        padding: 15px 10px;
     }
 }
