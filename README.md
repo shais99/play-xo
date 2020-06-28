@@ -1,4 +1,4 @@
-# X-O Application
+# X-O Game
 
 ![alt text](https://res.cloudinary.com/shaishar9/image/upload/v1593329069/cvzzijafk7ra0ht7rfba.jpg "x-o main screenshot")
 
